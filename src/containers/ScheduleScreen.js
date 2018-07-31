@@ -4,7 +4,7 @@ import { white, calendarBackground, calendarHighlight} from "../styles";
 import CalendarStrip from 'react-native-calendar-strip';
 import ItemDate from '../components/ItemDate';
 import ItemTask from '../components/ItemTask';
-import {data} from '../database.json'
+import {data} from '../database.json';
 
 class ScheduleScreen extends Component {
     constructor(props) {
