@@ -3,7 +3,9 @@ import {
   Text,  FlatList,
   View, TouchableOpacity, StyleSheet
 } from 'react-native';
+import { connect } from 'react-redux'
 
+import { chooseCategory } from '../actions'
 import { chooseColorByCategory } from '../utils'
 import {
   calendarHighlight, gray, categoryBirthday, white,
@@ -12,11 +14,11 @@ import {
 
 const categories = ['To do', 'Personal', 'Birthday', 'Event', 'Shopping'];
 
-class PickCategory extends Component {
+class ChooseCategory extends Component {
   state = {  }
 
   onPickCategory = (item) => {
-    
+    this.props.chooseCategory(item)
   }
 
   _renderItem = ({ item }) => (
@@ -37,8 +39,9 @@ class PickCategory extends Component {
           renderItem={this._renderItem}
           horizontal={true}
         />
-        <Text style={styles.textCurrentCategory}>
-          {`This task belongs to ... category`}
+        <Text style={[{ color: chooseColorByCategory(this.props.category) }, 
+          styles.textCurrentCategory]}>
+          {`This task belongs to ${this.props.category} category`}
         </Text>
       </View>
     );
@@ -66,4 +69,7 @@ const styles = StyleSheet.create({
   }
 })
 
-export default PickCategory;
+const mapStateToProps = (store) => ({category: store.category})
+
+//1st param: state, 2nd param: action
+export default connect(mapStateToProps, { chooseCategory })(ChooseCategory);
