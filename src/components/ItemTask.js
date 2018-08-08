@@ -4,16 +4,24 @@ import {
   View, StyleSheet, TouchableOpacity
 } from 'react-native';
 import RoundCheckbox from 'rn-round-checkbox';
+import {connect} from 'react-redux'
 
-import { gray, white, calendarHighlight } from '../styles'
-import { chooseColorByCategory } from '../utils'
+import { gray, white, calendarHighlight } from '../styles';
+import { chooseColorByCategory } from '../utils';
+import { toggleTask } from '../actions'
 
 class ItemTask extends Component {
   state = {
     taskDone: false
   }
 
-  toogleTask = newValue => this.setState({ taskDone: newValue })
+  toogleTask = newValue => {
+    this.setState({ taskDone: newValue })
+    this.props.toggleTask({
+      timeId: this.props.task.id,
+      dayId :  this.props.task.dayId,
+    })
+  }
 
   render() {
     return (
@@ -66,4 +74,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default ItemTask;
+export default connect(null, {toggleTask})(ItemTask);

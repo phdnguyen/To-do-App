@@ -11,3 +11,9 @@ export const addTask = (data) => ({
   //data: {id:..., date:,... task...}
   payload: data
 })
+
+export const toggleTask = (data) => ({
+  type: ADD_TASK,
+  //data: {id:..., date:,... task...}
+  payload: data
+})

@@ -3,13 +3,13 @@ import {
   Text,
   View, TextInput, TouchableOpacity, StyleSheet
 } from 'react-native';
-import CalendarStrip from 'react-native-calendar-strip'
-import DateTimePicker from 'react-native-modal-datetime-picker'
-import { connect } from 'react-redux'
+import CalendarStrip from 'react-native-calendar-strip';
+import DateTimePicker from 'react-native-modal-datetime-picker';
+import { connect } from 'react-redux';
 
-import { white, gray, calendarHighlight, calendarBackground, commonStyles } from '../styles'
-import ItemDate from '../components/ItemDate'
-import { getDateStringFromDate } from '../utils'
+import { white, gray, calendarHighlight, calendarBackground, commonStyles } from '../styles';
+import ItemDate from '../components/ItemDate';
+import { getDateStringFromDate } from '../utils';
 import ChooseCategory from '../components/ChooseCategory';
 import { addTask } from '../actions';
 
@@ -17,7 +17,9 @@ class AddTaskScreen extends Component {
   state = {
     selectedDate: getDateStringFromDate(new Date()),
     isTimePickerVisible: false,
-    time: new Date().toTimeString().substring(0, 5)
+    time: new Date().toTimeString().substring(0, 5),
+    dayId: Math.floor(new Date().getTime() / (1000 * 60 * 60 * 24)),
+    timeId: new Date().getTime()
   }
 
   componentDidMount() {
@@ -26,13 +28,13 @@ class AddTaskScreen extends Component {
 
   handleAddTask = () => {
     this.props.addTask({
-      id: 1234,
-      date: 'Junvu2vn',
+      id: this.state.dayId,
+      date: this.state.selectedDate,
       task: {
-        id: 12345,
-        category: 'To do',
-        content: 'abc',
-        time: '09:00',
+        id: this.state.timeId,
+        category: this.props.category,
+        content: this.state.content,
+        time: this.state.time,
         completed: false
       }
     })
@@ -40,9 +42,9 @@ class AddTaskScreen extends Component {
   }
 
   onDateSelected = (date) => {
-    //log date ra de xem cau truc
     this.setState({
-      selectedDate: getDateStringFromDate(date._d)
+      selectedDate: getDateStringFromDate(date._d),
+      dayId: Math.floor(date._d.getTime() / (1000 * 60 * 60 * 24))
     })
   }
 
@@ -52,7 +54,8 @@ class AddTaskScreen extends Component {
 
   handleTimePicked = (time) => {
     this.setState({
-      time: time.toTimeString().substring(0, 5)
+      time: time.toTimeString().substring(0, 5),
+      timeId: time.getTime()
     });
     this.hideTimePicker();
   };
@@ -116,4 +119,5 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null, { addTask })(AddTaskScreen);
+const mapStateToProps = ({category}) => ({category})
+export default connect(mapStateToProps, { addTask })(AddTaskScreen);

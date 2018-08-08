@@ -32,7 +32,7 @@ getMonth = (number) => {
   }
 }
 
-export const getDateStringFromDate = (date) => `${this.getDayOfWeek(date.getDay())} ${date.getDate()} ${this.getMonth(date.getMonth())} ${date.getFullYear()}`
+export const getDateStringFromDate = (date) => `${getDayOfWeek(date.getDay())} ${date.getDate()} ${getMonth(date.getMonth())} ${date.getFullYear()}`
 
 export const chooseColorByCategory = (category) => {
   switch (category) {

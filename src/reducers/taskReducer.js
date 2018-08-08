@@ -1,4 +1,4 @@
-import { ADD_TASK } from '../actions/type'
+import { ADD_TASK, TOGGLE_TASK } from '../actions/type'
 
 export default function (state = [], action) {
   switch (action.type) {
@@ -31,6 +31,20 @@ export default function (state = [], action) {
           }
         ].sort((day1, day2) => day1.id - day2.id)
       }
+    
+    case TOGGLE_TASK:
+
+      console.log(`preState ${state}`)
+
+      return state.map(dayTasks => (dayTasks.id === action.payload.dayId)
+        ? {
+          id: dayTasks.id.action,
+          date: dayTasks.id,
+          data: dayTasks.data.map(task => (task.id === action.payload.timeId)
+            ? { ...task, completed: !task.completed }
+            : task)
+        }
+        : dayTasks)
 
     default: return state
   }
