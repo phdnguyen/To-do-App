@@ -1,4 +1,4 @@
-import { CHOOSE_CATEGORY, ADD_TASK } from './type'
+import { CHOOSE_CATEGORY, ADD_TASK, TOGGLE_TASK, DEL_TASK } from './type'
 
 //chooseCategory('Birthday')
 export const chooseCategory = (category) => ({
@@ -12,8 +12,14 @@ export const addTask = (data) => ({
   payload: data
 })
 
-export const toggleTask = (data) => ({
-  type: ADD_TASK,
-  //data: {id:..., date:,... task...}
+export const toogleTask = (data) => ({
+  type: TOGGLE_TASK,
+  //data: {dayId:..., timeId:,...}
+  payload: data
+})
+
+export const delTask = (data) => ({
+  type: DEL_TASK,
+  //data: {dayId:..., timeId:,...}
   payload: data
 })

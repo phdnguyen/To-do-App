@@ -3,13 +3,13 @@ import {
   Text,
   View, TextInput, TouchableOpacity, StyleSheet
 } from 'react-native';
-import CalendarStrip from 'react-native-calendar-strip';
-import DateTimePicker from 'react-native-modal-datetime-picker';
-import { connect } from 'react-redux';
+import CalendarStrip from 'react-native-calendar-strip'
+import DateTimePicker from 'react-native-modal-datetime-picker'
+import { connect } from 'react-redux'
 
-import { white, gray, calendarHighlight, calendarBackground, commonStyles } from '../styles';
-import ItemDate from '../components/ItemDate';
-import { getDateStringFromDate } from '../utils';
+import { white, gray, calendarHighlight, calendarBackground, commonStyles } from '../styles'
+import ItemDate from '../components/ItemDate'
+import { getDateStringFromDate } from '../utils'
 import ChooseCategory from '../components/ChooseCategory';
 import { addTask } from '../actions';
 
@@ -18,7 +18,7 @@ class AddTaskScreen extends Component {
     selectedDate: getDateStringFromDate(new Date()),
     isTimePickerVisible: false,
     time: new Date().toTimeString().substring(0, 5),
-    dayId: Math.floor(new Date().getTime() / (1000 * 60 * 60 * 24)),
+    dayId: Math.floor(new Date().getTime() / (1000 * 60 * 60 *24)),
     timeId: new Date().getTime()
   }
 
@@ -42,9 +42,10 @@ class AddTaskScreen extends Component {
   }
 
   onDateSelected = (date) => {
+    //log date ra de xem cau truc
     this.setState({
       selectedDate: getDateStringFromDate(date._d),
-      dayId: Math.floor(date._d.getTime() / (1000 * 60 * 60 * 24))
+      dayId: Math.floor(date._d.getTime() / (1000 * 60 * 60 *24))
     })
   }
 
@@ -120,4 +121,5 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = ({category}) => ({category})
+
 export default connect(mapStateToProps, { addTask })(AddTaskScreen);
